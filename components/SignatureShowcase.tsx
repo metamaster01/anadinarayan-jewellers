@@ -75,6 +75,7 @@ export default function SignatureShowcase() {
   return (
     <section
       ref={sectionRef}
+      id="stores"
       className="relative overflow-hidden bg-black bg-[radial-gradient(ellipse_at_top_left,_rgba(96,12,24,0.55),_rgba(0,0,0,0.95)_55%,_#000_100%)] px-6 py-20 sm:px-10 lg:py-28"
     >
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">

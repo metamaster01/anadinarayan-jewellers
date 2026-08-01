@@ -11,15 +11,15 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return(
 <div>
-  <Navbar />
-  <HeroSection />;
+  
+  <HeroSection />
   <CuratedHeritage />
   <ExquisiteCategories />
   <NewArrivals />
   <SignatureShowcase />
   <LegacyStory />
   <AppDownloadSection />
-  <Footer />
+  
   
 </div>
 

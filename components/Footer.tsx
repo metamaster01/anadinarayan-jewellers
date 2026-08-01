@@ -29,11 +29,11 @@ import { motion, type Variants } from "framer-motion";
 
 
 const COLLECTIONS_LINKS = [
-  { label: "The Heritage Series", href: "/collections/heritage-series" },
-  { label: "Bridal Couture", href: "/collections/bridal-couture" },
-  { label: "Modern Diamond", href: "/collections/modern-diamond" },
-  { label: "Daily Luxury", href: "/collections/daily-luxury" },
-  { label: "Temple Gems", href: "/collections/temple-gems" },
+  { label: "The Heritage Series", href: "/collection" },
+  { label: "Bridal Couture", href: "/collection" },
+  { label: "Modern Diamond", href: "/collection" },
+  { label: "Daily Luxury", href: "/collection" },
+  { label: "Temple Gems", href: "/collection" },
 ];
 
 const CUSTOMER_CARE_LINKS = [
@@ -131,11 +131,16 @@ export default function Footer() {
               alt="AnadiNarayan"
               width={36}
               height={36}
-              className="h-9 w-9 rounded-sm object-cover"
+              className="h-18 w-18 rounded-sm object-cover"
             />
-            <span className="font-serif text-xl font-semibold text-rose-200">
-              AnadiNarayan
+            <div className="flex flex-col items-center text-center">
+            <span className="font-serif text-xl font-semibold tracking-wide text-amber-400 sm:text-2xl">
+              Anadi Narayan
             </span>
+            <span className="text-xs uppercase tracking-widest text-white/75">
+              Jewellers
+            </span>
+          </div>
           </Link>
 
           <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/55">
@@ -212,7 +217,7 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="mx-auto mt-14 flex max-w-7xl flex-col-reverse items-center gap-4 border-t border-white/10 py-6 text-center sm:flex-row sm:justify-between sm:text-left">
         <p className="text-xs text-white/45">
-          © {new Date().getFullYear()} Anandi Narayan. All Rights Reserved.
+          © {new Date().getFullYear()} <a href="https://metamaster.in" className="text-amber-400 hover:text-amber-300">Metamaster</a>. All Rights Reserved.
         </p>
         <div className="flex items-center gap-4">
           {PAYMENT_ICONS.map((Icon, index) => (

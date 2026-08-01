@@ -103,7 +103,7 @@ export default function AppDownloadSection() {
             className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start"
           >
             <a
-              href="https://play.google.com/store"
+              href="https://play.google.com/store/apps/details?id=com.dsoft.anadinarayanjwlrsbhandara&pcampaignid=web_share"
               className="flex w-full items-center gap-3 rounded-sm border border-white/15 bg-white/[0.03] px-5 py-3 transition-colors duration-200 hover:border-amber-400/60 hover:bg-amber-400/[0.06] sm:w-auto"
             >
               <Play className="h-6 w-6 shrink-0 fill-white text-white" />
@@ -118,7 +118,7 @@ export default function AppDownloadSection() {
             </a>
 
             <a
-              href="https://apps.apple.com"
+              href="https://apps.apple.com/in/app/anadinarayan-jewellers/id6758596623"
               className="flex w-full items-center gap-3 rounded-sm border border-white/15 bg-white/[0.03] px-5 py-3 transition-colors duration-200 hover:border-amber-400/60 hover:bg-amber-400/[0.06] sm:w-auto"
             >
               <Grid3x3 className="h-6 w-6 shrink-0 text-white" strokeWidth={1.75} />
@@ -127,7 +127,7 @@ export default function AppDownloadSection() {
                   Download on the
                 </span>
                 <span className="block text-sm font-semibold text-white">
-                  App Store
+                  Apple Store
                 </span>
               </span>
             </a>

@@ -12,6 +12,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { CATEGORIES, type ProductCategorySlug } from "@/data/Product";
+import { useRef } from "react";
 
 // Swap any of these for whatever reads best against your final icon set.
 const CATEGORY_ICONS: Record<ProductCategorySlug, LucideIcon> = {
@@ -40,8 +41,10 @@ const itemVariants: Variants = {
 };
 
 export default function ExquisiteCategories() {
+    const sectionRef = useRef<HTMLElement>(null);
+    
   return (
-    <section className="bg-black px-6 py-20 sm:px-10 lg:py-24">
+    <section ref={sectionRef} id="categories" className="bg-black px-6 py-20 sm:px-10 lg:py-24">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <motion.div
@@ -58,8 +61,10 @@ export default function ExquisiteCategories() {
             </h2>
           </motion.div>
 
+          {/* Points at the collections page with no filter applied —
+              individual circles below carry the ?category=… param. */}
           <Link
-            href="/categories"
+            href="/collection"
             className="hidden text-xs font-semibold uppercase tracking-widest text-amber-400 transition-colors duration-200 hover:text-amber-300 sm:inline-block"
           >
             View All Categories →
@@ -99,7 +104,7 @@ export default function ExquisiteCategories() {
         </motion.div>
 
         <Link
-          href="/categories"
+          href="/collection"
           className="mt-8 block text-center text-xs font-semibold uppercase tracking-widest text-amber-400 sm:hidden"
         >
           View All Categories →

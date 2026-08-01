@@ -28,10 +28,10 @@ type NavLink = {
 
 const NAV_LINKS: NavLink[] = [
   { label: "Home", href: "/" },
-  { label: "Collections", href: "/collections" },
-  { label: "Categories", href: "/categories" },
+  { label: "Collections", href: "/collection" },
+  { label: "Categories", href: "/#categories" },
   { label: "About", href: "/about" },
-  { label: "Stores", href: "/stores" },
+  { label: "Stores", href: "/#stores" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -73,10 +73,8 @@ export default function Navbar({ activePath = "/" }: NavbarProps) {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        isScrolled || isMenuOpen
-          ? "bg-black/90 backdrop-blur-sm"
-          : "bg-transparent"
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 bg-black/90 backdrop-blur-sm
+          "
       }`}
     >
       <nav
@@ -86,16 +84,21 @@ export default function Navbar({ activePath = "/" }: NavbarProps) {
         {/* Brand */}
         <Link href="/" className="flex items-center gap-3" onClick={() => setIsMenuOpen(false)}>
           <Image
-            src="/logo.png"
+            src="/logo-2.png"
             alt="AnadiNarayan"
-            width={36}
-            height={36}
-            className="h-9 w-9 rounded-sm object-cover"
+            width={68}
+            height={68}
+            className="h-20 w-20 rounded-sm object-cover"
             priority
           />
-          <span className="font-serif text-xl font-semibold tracking-wide text-rose-200 sm:text-2xl">
-            AnadiNarayan Jewellers
-          </span>
+          <div className="flex flex-col items-center text-center">
+            <span className="font-serif text-xl font-semibold tracking-wide text-amber-400 sm:text-2xl">
+              Anadi Narayan
+            </span>
+            <span className="text-xs uppercase tracking-widest text-white/75">
+              Jewellers
+            </span>
+          </div>
         </Link>
 
         {/* Desktop links */}
@@ -175,7 +178,7 @@ export default function Navbar({ activePath = "/" }: NavbarProps) {
               })}
               <li className="mt-3">
                 <Link
-                  href="#download"
+                  href="https://play.google.com/store/apps/details?id=com.dsoft.anadinarayanjwlrsbhandara&pcampaignid=web_share"
                   onClick={() => setIsMenuOpen(false)}
                   className="block rounded-sm border border-amber-400/70 px-6 py-3 text-center text-xs font-semibold uppercase tracking-widest text-amber-400"
                 >

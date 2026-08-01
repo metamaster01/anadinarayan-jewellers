@@ -62,13 +62,13 @@
 
 
 
-
 "use client";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Sparkles, Crown } from "lucide-react";
 import type { Product } from "@/data/Product";
+import { formatPrice } from "@/data/Product";
 import { openProductInApp } from "@/lib/app-redirect";
 
 interface ProductCardProps {
@@ -127,6 +127,9 @@ export default function ProductCard({ product, className = "" }: ProductCardProp
         </h3>
         <p className="mt-1 text-[10.5px] font-semibold uppercase tracking-[0.15em] text-white/45">
           {product.subtitle}
+        </p>
+        <p className="mt-1.5 text-sm font-semibold text-amber-300">
+          {formatPrice(product.price)}
         </p>
       </div>
     </motion.button>
