@@ -25,16 +25,17 @@ import {
   Wallet,
   Landmark,
 } from "lucide-react";
+import { CATEGORIES, HERITAGE_ITEMS } from "@/data/Product";
 import { motion, type Variants } from "framer-motion";
 
 
-const COLLECTIONS_LINKS = [
-  { label: "The Heritage Series", href: "/collection" },
-  { label: "Bridal Couture", href: "/collection" },
-  { label: "Modern Diamond", href: "/collection" },
-  { label: "Daily Luxury", href: "/collection" },
-  { label: "Temple Gems", href: "/collection" },
-];
+const CATEGORY_LINKS = {
+  title: "Shop by Category",
+  links: CATEGORIES.map((category: any) => ({
+    label: category.label,
+    href: `/collections?category=${category.slug}`,
+  })),
+};
 
 const CUSTOMER_CARE_LINKS = [
   { label: "Sitemap", href: "/sitemap" },
@@ -169,7 +170,7 @@ export default function Footer() {
             Collections
           </h3>
           <ul className="mt-5 flex flex-col gap-3">
-            {COLLECTIONS_LINKS.map((link) => (
+            {CATEGORY_LINKS.links.map((link) => (
               <li key={link.label}>
                 <Link
                   href={link.href}
