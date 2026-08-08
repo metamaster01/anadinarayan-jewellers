@@ -122,10 +122,10 @@ export default function ProductCard({ product, className = "" }: ProductCardProp
       </div>
 
       <div className="mt-4 px-0.5">
-        <h3 className="font-serif text-base text-white transition-colors duration-300 group-hover:text-amber-300 sm:text-lg">
+        <h3 className="font-serif text-base text-black transition-colors duration-300 group-hover:text-amber-300 sm:text-lg">
           {product.title}
         </h3>
-        <p className="mt-1 text-[10.5px] font-semibold uppercase tracking-[0.15em] text-white/45">
+        <p className="mt-1 text-[10.5px] font-semibold uppercase tracking-[0.15em] text-black/45">
           {product.subtitle}
         </p>
         <p className="mt-1.5 text-sm font-semibold text-amber-300">

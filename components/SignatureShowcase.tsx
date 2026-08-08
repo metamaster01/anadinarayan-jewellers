@@ -76,7 +76,8 @@ export default function SignatureShowcase() {
     <section
       ref={sectionRef}
       id="stores"
-      className="relative overflow-hidden bg-black bg-[radial-gradient(ellipse_at_top_left,_rgba(96,12,24,0.55),_rgba(0,0,0,0.95)_55%,_#000_100%)] px-6 py-20 sm:px-10 lg:py-28"
+      className="relative overflow-hidden bg-[radial-gradient(ellipse_at_top_left,_rgba(96,12,24,0.55),_rgba(0,0,0,0.95)_55%,_#000_100%)] px-4 py-16 sm:px-6 lg:px-10 lg:py-28"
+      style={{ backgroundColor: "#f9f9f9" }}
     >
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
         {/* Product photo */}
@@ -88,9 +89,9 @@ export default function SignatureShowcase() {
           className="order-1 lg:order-none"
         >
           <div ref={imageRef} className="relative mx-auto max-w-md lg:max-w-none">
-            <div className="relative aspect-square w-full overflow-hidden rounded-sm ring-1 ring-white/10">
+            <div className="relative aspect-auto w-full h-[420px] overflow-hidden rounded-sm ring-1 ring-white/10 sm:h-screen">
               <Image
-                src="/showcase-image.png"
+                src="/anadinarayan-post.jpg"
                 alt="The AnadiNarayan Signature Set — heritage necklace on a display cushion"
                 fill
                 sizes="(min-width: 1024px) 45vw, 90vw"

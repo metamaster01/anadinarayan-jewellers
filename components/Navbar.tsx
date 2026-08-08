@@ -31,7 +31,7 @@ const NAV_LINKS: NavLink[] = [
   { label: "Collections", href: "/collection" },
   { label: "Categories", href: "/#categories" },
   { label: "About", href: "/about" },
-  { label: "Stores", href: "/#stores" },
+  // { label: "Stores", href: "/#stores" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -73,9 +73,9 @@ export default function Navbar({ activePath = "/" }: NavbarProps) {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 bg-black/90 backdrop-blur-sm
-          "
-      }`}
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 backdrop-blur-sm
+          "`}
+      style={{ backgroundColor: "#621244" }}
     >
       <nav
         aria-label="Primary"
@@ -131,7 +131,7 @@ export default function Navbar({ activePath = "/" }: NavbarProps) {
 
         {/* Desktop CTA */}
         <Link
-          href="#download"
+          href="https://play.google.com/store/apps/details?id=com.dsoft.anadinarayanjwlrsbhandara&hl=en"
           className="hidden rounded-sm border border-amber-400/70 px-6 py-2.5 text-xs font-semibold uppercase tracking-widest text-amber-400 transition-colors duration-200 hover:border-amber-300 hover:bg-amber-400/10 lg:inline-block"
         >
           Download App
@@ -157,7 +157,9 @@ export default function Navbar({ activePath = "/" }: NavbarProps) {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden bg-black/95 lg:hidden"
+            className="overflow-hidden  lg:hidden"
+            style={{ backgroundColor: "#621244" }}
+
           >
             <ul className="flex flex-col gap-1 px-6 pb-8 pt-2">
               {NAV_LINKS.map((link) => {

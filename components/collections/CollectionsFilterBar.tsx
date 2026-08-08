@@ -71,7 +71,7 @@ export default function CollectionsFilterBar({
                 onClick={() => onCategoryChange("all")}
                 className={`rounded-sm border px-4 py-2 text-xs font-semibold uppercase tracking-wide transition-colors duration-200 ${
                   filters.category === "all"
-                    ? "border-black bg-black text-white"
+                    ? "border-black bg-[#621244] text-white"
                     : "border-neutral-300 bg-white text-neutral-700 hover:border-neutral-500"
                 }`}
               >

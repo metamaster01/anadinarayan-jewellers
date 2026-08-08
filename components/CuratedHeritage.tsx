@@ -24,7 +24,7 @@ const itemVariants: Variants = {
 
 export default function CuratedHeritage() {
   return (
-    <section className="bg-black px-6 py-20 sm:px-10 lg:py-28">
+    <section className=" px-6 py-20 sm:px-10 lg:py-28" style={{ backgroundColor: "#F9F9F9" }}>
       <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -33,7 +33,7 @@ export default function CuratedHeritage() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="text-center"
         >
-          <h2 className="font-serif text-3xl font-bold text-white sm:text-4xl">
+          <h2 className="font-serif text-3xl font-bold text-black sm:text-4xl">
             Curated Heritage
           </h2>
           <div className="mx-auto mt-3 h-[2px] w-16 bg-amber-400" />

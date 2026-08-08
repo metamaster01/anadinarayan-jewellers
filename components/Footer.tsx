@@ -116,7 +116,7 @@ function NewsletterForm() {
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-black px-6 pt-16 sm:px-10">
+    <footer className="border-t border-white/10 b px-6 pt-16 sm:px-10" style={{ backgroundColor: "#621244" }}>
       <motion.div
         variants={containerVariants}
         initial="hidden"

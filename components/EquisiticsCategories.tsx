@@ -1,27 +1,19 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
-import {
-  Gem,
-  CircleEllipsis,
-  Sparkles,
-  Circle,
-  Link2,
-  AlignJustify,
-  type LucideIcon,
-} from "lucide-react";
 import { CATEGORIES, type ProductCategorySlug } from "@/data/Product";
 import { useRef } from "react";
 
-// Swap any of these for whatever reads best against your final icon set.
-const CATEGORY_ICONS: Record<ProductCategorySlug, LucideIcon> = {
-  rings: Gem,
-  earrings: CircleEllipsis,
-  necklaces: Sparkles,
-  bangles: Circle,
-  bracelets: Link2,
-  chains: AlignJustify,
+// Map categories to image paths stored under public/categories.
+const CATEGORY_IMAGES: Record<ProductCategorySlug, string> = {
+  rings: "/categories/category-1.jpg",
+  earrings: "/categories/category-2.jpg",
+  necklaces: "/categories/category-3.jpg",
+  bangles: "/categories/category-4.jpg",
+  bracelets: "/categories/category-5.jpg",
+  chains: "/categories/category-6.jpg",
 };
 
 const containerVariants: Variants = {
@@ -44,7 +36,7 @@ export default function ExquisiteCategories() {
     const sectionRef = useRef<HTMLElement>(null);
     
   return (
-    <section ref={sectionRef} id="categories" className="bg-black px-6 py-20 sm:px-10 lg:py-24">
+    <section ref={sectionRef} id="categories" className="px-6 py-20 sm:px-10 lg:py-24" style={{ backgroundColor: "#621244" }}>
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <motion.div
@@ -79,7 +71,7 @@ export default function ExquisiteCategories() {
           className="mt-12 flex gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:grid sm:grid-cols-3 sm:gap-8 sm:overflow-visible sm:pb-0 lg:grid-cols-6 [&::-webkit-scrollbar]:hidden"
         >
           {CATEGORIES.map((category) => {
-            const Icon = CATEGORY_ICONS[category.slug];
+            const imageSrc = CATEGORY_IMAGES[category.slug];
             return (
               <motion.div
                 key={category.slug}
@@ -88,11 +80,13 @@ export default function ExquisiteCategories() {
               >
                 <Link
                   href={category.href}
-                  className="group flex h-24 w-24 items-center justify-center rounded-full bg-white/5 ring-1 ring-white/10 transition-all duration-300 hover:bg-amber-400/10 hover:ring-amber-400/60 sm:h-28 sm:w-28"
+                  className="group relative flex h-24 w-24 overflow-hidden rounded-full bg-white/5 ring-1 ring-white/10 transition-all duration-300 hover:ring-amber-400/60 sm:h-28 sm:w-28"
                 >
-                  <Icon
-                    className="h-8 w-8 text-amber-400 transition-transform duration-300 group-hover:scale-110"
-                    strokeWidth={1.5}
+                  <Image
+                    src={imageSrc}
+                    alt={`${category.label} category`}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </Link>
                 <span className="text-[11px] font-semibold uppercase tracking-widest text-white/80">

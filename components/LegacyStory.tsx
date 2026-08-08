@@ -128,7 +128,7 @@ export default function LegacyStory() {
   }, [prefersReducedMotion]);
 
   return (
-    <section className="bg-black px-6 py-20 sm:px-10 lg:py-28">
+    <section className="px-6 py-20 sm:px-10 lg:py-28" style={{ backgroundColor: "#f9f9f9" }}>
       <div className="mx-auto max-w-7xl">
         {/* ---------------- Trust badges ---------------- */}
         <motion.div
@@ -150,8 +150,8 @@ export default function LegacyStory() {
                   className="mx-auto h-7 w-7 text-amber-400 transition-transform duration-300 group-hover:scale-110"
                   strokeWidth={1.5}
                 />
-                <h3 className="mt-4 font-serif text-lg text-white">{badge.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/55">
+                <h3 className="mt-4 font-serif text-lg text-black">{badge.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-black/55">
                   {badge.description}
                 </p>
               </motion.div>
@@ -245,14 +245,14 @@ export default function LegacyStory() {
 
             <motion.h2
               variants={copyItemVariants}
-              className="mt-4 font-serif text-4xl font-bold leading-[1.1] text-white sm:text-5xl"
+              className="mt-4 font-serif text-4xl font-bold leading-[1.1] text-black sm:text-5xl"
             >
               Crafting Memories for Generations
             </motion.h2>
 
             <motion.p
               variants={copyItemVariants}
-              className="mt-6 max-w-lg text-base leading-relaxed text-white/70 sm:text-lg"
+              className="mt-6 max-w-lg text-base leading-relaxed text-black/70 sm:text-lg"
             >
               At Anandi Narayan, jewelry is more than an accessory; it is a
               legacy of love and a vessel for history. For over five decades,
@@ -263,7 +263,7 @@ export default function LegacyStory() {
 
             <motion.blockquote
               variants={copyItemVariants}
-              className="mt-6 max-w-lg border-l-2 border-amber-400/50 pl-5 text-base italic leading-relaxed text-white/60 sm:text-lg"
+              className="mt-6 max-w-lg border-l-2 border-amber-400/50 pl-5 text-base italic leading-relaxed text-black/60 sm:text-lg"
             >
               &ldquo;Every piece we create tells a story of unparalleled
               craftsmanship and absolute devotion to the art of fine

@@ -164,7 +164,7 @@ export default function NewArrivals() {
   }, [prefersReducedMotion]);
 
   return (
-    <section ref={sectionRef} className="bg-black py-20 lg:py-28">
+    <section ref={sectionRef} className=" py-20 lg:py-28" style={{ backgroundColor: "#f9f9f9" }}>
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <motion.div
@@ -176,7 +176,7 @@ export default function NewArrivals() {
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400">
               Fresh From the Atelier
             </p>
-            <h2 className="mt-3 font-serif text-3xl font-bold text-white sm:text-4xl">
+            <h2 className="mt-3 font-serif text-3xl font-bold text-black sm:text-4xl">
               New Arrivals
             </h2>
           </motion.div>

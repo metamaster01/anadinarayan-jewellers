@@ -446,36 +446,264 @@
 
 
 
+// "use client";
+
+// /**
+//  * HeroSection
+//  * ------------------------------------------------------------------
+//  * Full-bleed hero with an autoplaying muted background video, a
+//  * poster-image + <Image> fallback for browsers/devices that block
+//  * or fail to load the video, left-aligned copy + CTAs, and a
+//  * right-aligned product/phone image.
+//  *
+//  * Stack: Next.js (App Router) · TypeScript · Tailwind CSS v4
+//  *        Framer Motion (entrance choreography) · GSAP + ScrollTrigger
+//  *        (parallax on the hero image)
+//  *
+//  * Required assets in /public:
+//  *   /public/bg-video.mp4     -> looping background video
+//  *   /public/bg-image.jpg     -> poster + no-JS/video-failure fallback
+//  *   /public/hero-image.png   -> right-side product image (phone mockup)
+//  *
+//  * Mobile (<lg): the section is shorter than a full viewport (sized by
+//  * viewport *height*, not width, so it never gets uncomfortably
+//  * cramped on narrow phones) and only the long description + phone
+//  * image are hidden. The eyebrow, heading, and both CTAs stay visible
+//  * at every size — a banner still needs to read as a hero, not just a
+//  * video clip with buttons on it. Full layout returns at `lg`.
+//  * ------------------------------------------------------------------
+//  */
+
+// import Image from "next/image";
+// import { useEffect, useRef, useState } from "react";
+// import { motion, useReducedMotion, type Variants } from "framer-motion";
+// import gsap from "gsap";
+// import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+
+// if (typeof window !== "undefined") {
+//   gsap.registerPlugin(ScrollTrigger);
+// }
+
+// const containerVariants: Variants = {
+//   hidden: {},
+//   visible: {
+//     transition: {
+//       staggerChildren: 0.12,
+//       delayChildren: 0.15,
+//     },
+//   },
+// };
+
+// const itemVariants: Variants = {
+//   hidden: { opacity: 0, y: 24 },
+//   visible: {
+//     opacity: 1,
+//     y: 0,
+//     transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+//   },
+// };
+
+// export default function HeroSection() {
+//   const sectionRef = useRef<HTMLElement>(null);
+//   const videoRef = useRef<HTMLVideoElement>(null);
+//   const imageWrapRef = useRef<HTMLDivElement>(null);
+
+//   const [videoFailed, setVideoFailed] = useState(false);
+//   const prefersReducedMotion = useReducedMotion();
+
+//   // Pause/skip the video entirely for users who asked for reduced motion,
+//   // and guard against autoplay being blocked by the browser.
+//   useEffect(() => {
+//     const video = videoRef.current;
+//     if (!video || prefersReducedMotion) return;
+
+//     const playPromise = video.play();
+//     if (playPromise !== undefined) {
+//       playPromise.catch(() => {
+//         // Autoplay was blocked (e.g. data-saver mode) -> fall back to poster.
+//         setVideoFailed(true);
+//       });
+//     }
+//   }, [prefersReducedMotion]);
+
+//   // Subtle scroll-linked parallax on the right-hand image. Skipped
+//   // completely when the user prefers reduced motion.
+//   useEffect(() => {
+//     if (prefersReducedMotion || !imageWrapRef.current || !sectionRef.current) {
+//       return;
+//     }
+
+//     const ctx = gsap.context(() => {
+//       gsap.to(imageWrapRef.current, {
+//         yPercent: 8,
+//         ease: "none",
+//         scrollTrigger: {
+//           trigger: sectionRef.current,
+//           start: "top top",
+//           end: "bottom top",
+//           scrub: 0.6,
+//         },
+//       });
+//     }, sectionRef);
+
+//     return () => ctx.revert();
+//   }, [prefersReducedMotion]);
+
+//   const showVideo = !prefersReducedMotion && !videoFailed;
+
+//   return (
+//     <section
+//       ref={sectionRef}
+//       className="relative isolate flex min-h-[78vh] w-full items-center overflow-hidden bg-black sm:min-h-[72vh] lg:min-h-screen"
+//     >
+//       {/* ---------------- Background layer ---------------- */}
+//       <div className="absolute inset-0 -z-10">
+//         {/* Static poster/fallback image. Always mounted (as the poster
+//             frame) so there is zero flash-of-empty-background before the
+//             video can play, and it becomes the permanent background if
+//             the video fails or reduced motion is requested. */}
+//         <Image
+//           src="/bg-image.jpg"
+//           alt=""
+//           fill
+//           priority
+//           sizes="100vw"
+//           className="object-cover"
+//         />
+
+//         {showVideo && (
+//           <video
+//             ref={videoRef}
+//             className="absolute inset-0 h-full w-full object-cover"
+//             autoPlay
+//             muted
+//             loop
+//             playsInline
+//             preload="auto"
+//             poster="/bg-image.jpg"
+//             onError={() => setVideoFailed(true)}
+//             aria-hidden="true"
+//           >
+//             <source src="/bg-video.mp4" type="video/mp4" />
+//           </video>
+//         )}
+
+//         {/* Readability scrim: darkest on the left where copy sits */}
+//         <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/25" />
+//         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
+//       </div>
+
+//       {/* ---------------- Foreground content ---------------- */}
+//       <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-10 px-6 pb-16 pt-28 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:pt-24">
+//         {/* Copy */}
+//         <motion.div
+//           variants={containerVariants}
+//           initial="hidden"
+//           animate="visible"
+//           className="w-full max-w-xl text-center lg:text-left"
+//         >
+//           <motion.p
+//             variants={itemVariants}
+//             className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400"
+//           >
+//             The Heritage Collection
+//           </motion.p>
+
+//           <motion.h1
+//             variants={itemVariants}
+//             className="mt-4 font-serif text-3xl font-bold leading-[1.15] text-white sm:text-5xl lg:text-6xl"
+//           >
+//             Timeless Jewellery for Every Celebration
+//           </motion.h1>
+
+//           {/* The longer description is the one thing hidden on mobile —
+//               it's the piece that made the banner feel bloated. It
+//               reappears at `sm` where there's enough width to breathe. */}
+//           <motion.p
+//             variants={itemVariants}
+//             className="mx-auto mt-5 hidden max-w-md text-base text-white/70 sm:block sm:text-lg lg:mx-0"
+//           >
+//             Crafting legacy through generations of artistry. Discover pieces
+//             that define royalty and celebrate the extraordinary moments of
+//             life.
+//           </motion.p>
+
+//           <motion.div
+//             variants={itemVariants}
+//             className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:mt-9 lg:justify-start"
+//           >
+//             <a
+//               href="/collection"
+//               className="w-full rounded-sm bg-amber-400 px-6 py-3 text-center text-xs font-semibold uppercase tracking-wide text-black transition-transform duration-200 hover:-translate-y-0.5 hover:bg-amber-300 sm:w-auto sm:text-sm lg:px-8 lg:py-3.5"
+//             >
+//               Explore Collections
+//             </a>
+//             <a
+//               href="https://play.google.com/store/apps/details?id=com.dsoft.anadinarayanjwlrsbhandara&hl"
+//               className="w-full rounded-sm border border-amber-400/70 px-6 py-3 text-center text-xs font-semibold uppercase tracking-wide text-amber-400 transition-colors duration-200 hover:border-amber-300 hover:bg-amber-400/10 sm:w-auto sm:text-sm lg:px-8 lg:py-3.5"
+//             >
+//               Download App
+//             </a>
+//           </motion.div>
+//         </motion.div>
+
+//         {/* Product image — still hidden below `lg` so the mobile banner
+//             stays a clean video-forward strip; reappears at `lg` alongside
+//             the full copy block. */}
+//         <motion.div
+//           initial={{ opacity: 0, scale: 0.94 }}
+//           animate={{ opacity: 1, scale: 1 }}
+//           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+//           className="hidden w-full max-w-[280px] shrink-0 sm:max-w-sm lg:block lg:max-w-md"
+//         >
+//           <div ref={imageWrapRef} className="relative">
+//             <Image
+//               src="/hero-image.png"
+//               alt="AnadiNarayan app preview showing the Royal Collection on a smartphone"
+//               width={640}
+//               height={860}
+//               priority
+//               className="h-auto w-full drop-shadow-[0_25px_60px_rgba(0,0,0,0.55)]"
+//             />
+//           </div>
+//         </motion.div>
+//       </div>
+//     </section>
+//   )
+// }
+
+
+
+
+
 "use client";
 
 /**
  * HeroSection
  * ------------------------------------------------------------------
- * Full-bleed hero with an autoplaying muted background video, a
- * poster-image + <Image> fallback for browsers/devices that block
- * or fail to load the video, left-aligned copy + CTAs, and a
- * right-aligned product/phone image.
+ * Full-bleed hero: an autoplaying muted background video with a
+ * poster-image + <Image> fallback, and left-aligned copy sitting
+ * directly over the photo (no separate right-side product image in
+ * this design — the necklace/photo itself carries the right side).
  *
  * Stack: Next.js (App Router) · TypeScript · Tailwind CSS v4
- *        Framer Motion (entrance choreography) · GSAP + ScrollTrigger
- *        (parallax on the hero image)
+ *        Framer Motion (entrance choreography + scroll-cue bounce)
+ *        · GSAP + ScrollTrigger (background parallax)
  *
  * Required assets in /public:
- *   /public/bg-video.mp4     -> looping background video
- *   /public/bg-image.jpg     -> poster + no-JS/video-failure fallback
- *   /public/hero-image.png   -> right-side product image (phone mockup)
+ *   /public/bg-video.mp4  -> looping background video
+ *   /public/bg-image.jpg  -> poster + no-JS/video-failure fallback
  *
- * Mobile (<lg): the section is shorter than a full viewport (sized by
- * viewport *height*, not width, so it never gets uncomfortably
- * cramped on narrow phones) and only the long description + phone
- * image are hidden. The eyebrow, heading, and both CTAs stay visible
- * at every size — a banner still needs to read as a hero, not just a
- * video clip with buttons on it. Full layout returns at `lg`.
+ * Mobile (<lg): section height scales off viewport *height* (not
+ * width) so it stays comfortable on narrow phones. Eyebrow, heading,
+ * description, and both CTAs all stay visible at every size — this
+ * design reads as a hero at every breakpoint, not just on desktop.
  * ------------------------------------------------------------------
  */
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { ChevronsDown } from "lucide-react";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -506,7 +734,7 @@ const itemVariants: Variants = {
 export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const imageWrapRef = useRef<HTMLDivElement>(null);
+  const bgLayerRef = useRef<HTMLDivElement>(null);
 
   const [videoFailed, setVideoFailed] = useState(false);
   const prefersReducedMotion = useReducedMotion();
@@ -526,16 +754,16 @@ export default function HeroSection() {
     }
   }, [prefersReducedMotion]);
 
-  // Subtle scroll-linked parallax on the right-hand image. Skipped
+  // Subtle scroll-linked parallax on the whole background layer. Skipped
   // completely when the user prefers reduced motion.
   useEffect(() => {
-    if (prefersReducedMotion || !imageWrapRef.current || !sectionRef.current) {
+    if (prefersReducedMotion || !bgLayerRef.current || !sectionRef.current) {
       return;
     }
 
     const ctx = gsap.context(() => {
-      gsap.to(imageWrapRef.current, {
-        yPercent: 8,
+      gsap.to(bgLayerRef.current, {
+        yPercent: 10,
         ease: "none",
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -554,10 +782,10 @@ export default function HeroSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative isolate flex min-h-[78vh] w-full items-center overflow-hidden bg-black sm:min-h-[72vh] lg:min-h-screen"
+      className="relative isolate flex min-h-[82vh] w-full items-center overflow-hidden bg-black sm:min-h-[78vh] lg:min-h-screen"
     >
       {/* ---------------- Background layer ---------------- */}
-      <div className="absolute inset-0 -z-10">
+      <div ref={bgLayerRef} className="absolute inset-0 -z-10 h-[112%]">
         {/* Static poster/fallback image. Always mounted (as the poster
             frame) so there is zero flash-of-empty-background before the
             video can play, and it becomes the permanent background if
@@ -588,86 +816,79 @@ export default function HeroSection() {
           </video>
         )}
 
-        {/* Readability scrim: darkest on the left where copy sits */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/25" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
+        {/* Readability scrim: darkest on the left where copy sits, fading
+            out toward the right so the photo itself stays the hero. */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/35 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/15" />
       </div>
 
       {/* ---------------- Foreground content ---------------- */}
-      <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-10 px-6 pb-16 pt-28 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:pt-24">
-        {/* Copy */}
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-6 px-6 pb-16 pt-28 sm:px-10 lg:grid-cols-2 lg:pt-24">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="w-full max-w-xl text-center lg:text-left"
+          className="max-w-xl lg:pr-8"
         >
           <motion.p
             variants={itemVariants}
-            className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400"
+            className="text-xs font-semibold uppercase tracking-[0.25em] text-amber-400 sm:text-sm"
           >
-            The Heritage Collection
+            The Atelier of Excellence
           </motion.p>
 
           <motion.h1
             variants={itemVariants}
-            className="mt-4 font-serif text-3xl font-bold leading-[1.15] text-white sm:text-5xl lg:text-6xl"
+            className="mt-4 font-sans text-4xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl"
           >
             Timeless Jewellery for Every Celebration
           </motion.h1>
 
-          {/* The longer description is the one thing hidden on mobile —
-              it's the piece that made the banner feel bloated. It
-              reappears at `sm` where there's enough width to breathe. */}
           <motion.p
             variants={itemVariants}
-            className="mx-auto mt-5 hidden max-w-md text-base text-white/70 sm:block sm:text-lg lg:mx-0"
+            className="mt-5 max-w-md text-base leading-relaxed text-white/80 sm:text-lg"
           >
-            Crafting legacy through generations of artistry. Discover pieces
-            that define royalty and celebrate the extraordinary moments of
-            life.
+            Discover a curated collection of fine jewellery, where heritage
+            craftsmanship meets contemporary grace for your most cherished
+            moments.
           </motion.p>
 
           <motion.div
             variants={itemVariants}
-            className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:mt-9 lg:justify-start"
+            className="mt-9 flex flex-col gap-3 sm:flex-row"
           >
             <a
-              href="/collection"
-              className="w-full rounded-sm bg-amber-400 px-6 py-3 text-center text-xs font-semibold uppercase tracking-wide text-black transition-transform duration-200 hover:-translate-y-0.5 hover:bg-amber-300 sm:w-auto sm:text-sm lg:px-8 lg:py-3.5"
+              href="/collections"
+              className="rounded-sm bg-white px-7 py-3.5 text-center text-xs font-semibold uppercase tracking-wide text-[#5a0f30] transition-transform duration-200 hover:-translate-y-0.5 hover:bg-amber-50 sm:text-sm"
             >
               Explore Collections
             </a>
             <a
-              href="https://play.google.com/store/apps/details?id=com.dsoft.anadinarayanjwlrsbhandara&hl"
-              className="w-full rounded-sm border border-amber-400/70 px-6 py-3 text-center text-xs font-semibold uppercase tracking-wide text-amber-400 transition-colors duration-200 hover:border-amber-300 hover:bg-amber-400/10 sm:w-auto sm:text-sm lg:px-8 lg:py-3.5"
+              href="/contact"
+              className="rounded-sm border border-white/70 px-7 py-3.5 text-center text-xs font-semibold uppercase tracking-wide text-white transition-colors duration-200 hover:border-white hover:bg-white/10 sm:text-sm"
             >
-              Download App
+              Book a Viewing
             </a>
           </motion.div>
         </motion.div>
-
-        {/* Product image — still hidden below `lg` so the mobile banner
-            stays a clean video-forward strip; reappears at `lg` alongside
-            the full copy block. */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.94 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-          className="hidden w-full max-w-[280px] shrink-0 sm:max-w-sm lg:block lg:max-w-md"
-        >
-          <div ref={imageWrapRef} className="relative">
-            <Image
-              src="/hero-image.png"
-              alt="AnadiNarayan app preview showing the Royal Collection on a smartphone"
-              width={640}
-              height={860}
-              priority
-              className="h-auto w-full drop-shadow-[0_25px_60px_rgba(0,0,0,0.55)]"
-            />
-          </div>
-        </motion.div>
       </div>
+
+      {/* Scroll-down cue */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.9 }}
+        className="absolute inset-x-0 bottom-6 flex justify-center sm:bottom-8"
+      >
+        <motion.div
+          animate={
+            prefersReducedMotion ? undefined : { y: [0, 8, 0] }
+          }
+          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <ChevronsDown className="h-6 w-6 text-[#c98aa3]" strokeWidth={1.75} />
+        </motion.div>
+      </motion.div>
     </section>
-  )
+  );
 }

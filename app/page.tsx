@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import NewArrivals from "@/components/NewArrival";
 import SignatureShowcase from "@/components/SignatureShowcase";
 import Footer from "@/components/Footer";
+import VisitStoreSection from "@/components/about/VisitStoreSection";
 
 export default function Home() {
   return(
@@ -18,7 +19,8 @@ export default function Home() {
   <NewArrivals />
   <SignatureShowcase />
   <LegacyStory />
-  <AppDownloadSection />
+  {/* <AppDownloadSection /> */}
+  <VisitStoreSection />
   
   
 </div>
